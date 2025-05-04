@@ -1,0 +1,96 @@
+.container {
+    text-align: center;
+    padding: 3rem; /* Increased padding */
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border-radius: 25px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    max-width: 1200px; /* Increased max-width */
+    width: 95%; /* Slightly more width */
+    margin: 3rem auto;
+  }
+  
+  h1 {
+    font-size: 2.5rem; /* Slightly larger heading */
+    color: white;
+    margin-bottom: 2rem;
+  }
+  
+  .error-message {
+    color: #ff4d4d;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .input-group {
+    text-align: left;
+  }
+  
+  .input-group label {
+    display: block;
+    font-size: 1.2rem; /* Made label more prominent */
+    font-weight: 600;  /* Bolder text */
+    color: #f1f1f1;
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.5px;
+  }
+  
+  .input-group input {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .input-group input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  .btn-student {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .btn-student:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px);
+  }
+  
+  .btn-student .icon {
+    margin-right: 0.5rem;
+  }
+  
+  .back-link {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .back-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+  }
