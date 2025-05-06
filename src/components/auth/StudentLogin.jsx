@@ -1,29 +1,54 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Import axios
+import axios from 'axios';
 import '../../styles/studentlogin.css';
 
 function StudentLogin() {
   const [rollNumber, setRollNumber] = useState('');
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Roll Number:', rollNumber); // Debugging line
+
+    // Validate roll number format
+    if (!rollNumber.match(/^[A-Z]\d{3}$/i)) {
+      setError('Please enter a valid roll number (e.g., A001)');
+      return;
+    }
+
+    setError('');
+    setIsLoading(true);
+
     try {
-      const response = await axios.post('http://127.0.0.1:5000/api/login/student', {
-        roll_number: rollNumber,
-      });
+      const response = await axios.post(
+        'http://127.0.0.1:5000/api/student/login',
+        { roll_number: rollNumber.toUpperCase() }
+      );
 
       if (response.data.success) {
-        localStorage.setItem('token', response.data.token);
+        const { token, team_number, student_name, roll_number } = response.data.data;
+
+        // Save token and student info
+        localStorage.setItem('token', token);
+        localStorage.setItem(
+          'student',
+          JSON.stringify({ team_number, student_name, roll_number })
+        );
+
+        // Redirect to dashboard
         navigate('/student/dashboard');
       } else {
-        setError(response.data.message || 'Login failed');
+        setError(response.data.message || 'Invalid roll number');
       }
     } catch (err) {
-      setError('Network error. Please try again.');
+      const errorMessage =
+        err.response?.data?.message || err.message || 'Network error. Please try again.';
+      setError(errorMessage);
+      console.error('Login error:', err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -38,14 +63,26 @@ function StudentLogin() {
             type="text"
             id="rollnumber"
             value={rollNumber}
-            onChange={(e) => setRollNumber(e.target.value)}
-            placeholder="Enter your roll number"
+            onChange={(e) => setRollNumber(e.target.value.trim())}
+            placeholder="Enter your roll number (e.g., A001)"
             required
+            autoComplete="off"
+            autoFocus
           />
         </div>
-        <button type="submit" className="btn btn-student">
-          <span className="icon">🎓</span>
-          <span>Login as Student</span>
+        <button
+          type="submit"
+          className="btn btn-student"
+          disabled={isLoading || !rollNumber}
+        >
+          {isLoading ? (
+            <>
+              <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              <span className="ms-2">Logging in...</span>
+            </>
+          ) : (
+            'Login'
+          )}
         </button>
       </form>
       <a href="/" className="back-link">← Back to role selection</a>

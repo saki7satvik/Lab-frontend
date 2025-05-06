@@ -1,0 +1,78 @@
+.team-details-container {
+  max-width: 960px;
+  margin: 3rem auto;
+  padding: 2rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  color: #e8f7ff;
+}
+
+.team-details-container h2 {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #aee6ff;
+}
+
+.team-details-container h3 {
+  margin-top: 2rem;
+  font-size: 1.3rem;
+  color: #aee6ff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 0.4rem;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 0.8rem;
+}
+
+li {
+  margin-bottom: 0.6rem;
+  padding: 0.7rem 1rem;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  color: #e0f7ff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.action-buttons {
+  margin-top: 8px;
+}
+
+button.accept {
+  padding: 6px 12px;
+  margin-right: 10px;
+  background-color: #00c851;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+
+button.reject {
+  padding: 6px 12px;
+  background-color: #ff4444;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+
+button.accept:hover {
+  background-color: #007e33;
+}
+
+button.reject:hover {
+  background-color: #cc0000;
+}
+
+.loading-text,
+.error-text {
+  text-align: center;
+  color: #ffcccb;
+  font-size: 1.2rem;
+}

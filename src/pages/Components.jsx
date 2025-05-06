@@ -1,81 +1,120 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import '../styles/components.css'; // Assuming you have a CSS file for styling
+import axios from 'axios';
+import '../styles/components.css';
 
 function Components() {
   const [components, setComponents] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const navigate = useNavigate();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedComp, setSelectedComp] = useState(null);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
-    const fetchComponents = async () => {
+    async function fetchComps() {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://127.0.0.1:5000/api/components', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
+        const res = await axios.get('http://127.0.0.1:5000/api/student/components', {
+          headers: { Authorization: `Bearer ${token}` }
         });
-        
-        if (!response.ok) {
-          throw new Error('Failed to fetch components');
-        }
-        
-        const data = await response.json();
-        setComponents(data.data);
+        setComponents(res.data.data);
       } catch (err) {
-        setError(err.message);
-        navigate('/student'); // Redirect if unauthorized
+        setError(err.response?.data?.message || 'Failed to load components');
       } finally {
         setLoading(false);
       }
-    };
-    
-    fetchComponents();
-  }, [navigate]);
+    }
+    fetchComps();
+  }, []);
 
-  const filteredComponents = components.filter(comp => 
-    comp.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const openModal = (comp) => {
+    setSelectedComp(comp);
+    setQuantity(1);
+    setModalOpen(true);
+  };
 
-  if (loading) return <div className="loading">Loading...</div>;
-  if (error) return <div className="error-message">{error}</div>;
+  const closeModal = () => {
+    setModalOpen(false);
+    setSelectedComp(null);
+  };
+
+  const submitRequest = async () => {
+    if (quantity < 1 || quantity > selectedComp.available) {
+      alert(`Enter quantity between 1 and ${selectedComp.available}`);
+      return;
+    }
+    try {
+      const token = localStorage.getItem('token');
+      const res = await axios.post(
+        'http://127.0.0.1:5000/api/student/request',
+        {
+          component_id: selectedComp.id,
+          component_name: selectedComp.name,
+          quantity,
+          notes: selectedComp.notes || ''
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+  
+      if (res.data.success) {
+        alert(`Request ${res.data.data.request_id} created`);
+        closeModal();
+      } else {
+        alert(res.data.message);
+      }
+    } catch (err) {
+      alert(err.response?.data?.message || 'Error submitting request');
+    }
+  };
+  
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div className="error">{error}</div>;
 
   return (
     <div className="components-container">
-      <h1>Available Components</h1>
-      
-      <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Search components..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
+      {components.map((comp) => (
+        <div key={comp.id} className="component-card">
+          <h3>{comp.name}</h3>
+          <p>{comp.description}</p>
+          <p>Available: {comp.available}</p>
+          <button onClick={() => openModal(comp)}>Request</button>
+        </div>
+      ))}
+
+    {modalOpen && (
+      <div className="modal-overlay">
+        <div className="modal">
+          <h2>Request: {selectedComp.name}</h2>
+
+          <label>
+            Quantity (max {selectedComp.available}):
+            <input
+              type="number"
+              min="1"
+              max={selectedComp.available}
+              value={quantity}
+              onChange={(e) => setQuantity(Number(e.target.value))}
+            />
+          </label>
+    
+          <label>
+            Notes (optional):
+            <textarea
+              placeholder="Mention any specific reason or urgency"
+              onChange={(e) => setSelectedComp({ ...selectedComp, notes: e.target.value })}
+              value={selectedComp.notes || ''}
+            />
+          </label>
+    
+          <div className="modal-buttons">
+            <button onClick={submitRequest}>Submit</button>
+            <button onClick={closeModal}>Cancel</button>
+          </div>
+        </div>
       </div>
-      
-      <div className="components-list">
-        {filteredComponents.length > 0 ? (
-          filteredComponents.map((component) => (
-            <div key={component.id} className="component-card">
-              <h3>{component.name}</h3>
-              <p>Available: {component.available}</p>
-              <p>Category: {component.category}</p>
-              <Link 
-                to={`/student/issue?component=${component.id}`}
-                className="btn btn-issue"
-                state={{ component }}
-              >
-                Request
-              </Link>
-            </div>
-          ))
-        ) : (
-          <p>No components found</p>
-        )}
-      </div>
+    )}
+
     </div>
   );
 }

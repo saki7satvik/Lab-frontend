@@ -1,31 +1,54 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../../styles/instructor.css';
+import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
+import '../../styles/instructorlogin.css';
 
 function InstructorLogin() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [formData, setFormData] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setIsLoading(true);
+
+    if (!formData.username || !formData.password) {
+      setError('Please enter both username and password');
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      const response = await fetch('/api/login/instructor', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
+      const { data } = await axios.post('http://127.0.0.1:5000/api/login/instructor', {
+        username: formData.username,
+        password: formData.password
       });
-      const data = await response.json();
-      
+
       if (data.success) {
-        localStorage.setItem('token', data.token);
+        const { token, name } = data.data;
+
+        // Store token and instructor name
+        localStorage.setItem('token', token);
+        localStorage.setItem('userType', 'instructor');
+        localStorage.setItem('userName', name);
+
+        // Navigate to instructor dashboard
         navigate('/instructor/dashboard');
       } else {
         setError(data.message || 'Login failed');
       }
     } catch (err) {
-      setError('Network error. Please try again.');
+      setError(err.response?.data?.message || 'Network error. Please try again.');
+      console.error('Login error:', err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -33,35 +56,51 @@ function InstructorLogin() {
     <div className="container">
       <h1>Instructor Login</h1>
       {error && <div className="error-message">{error}</div>}
+
       <form onSubmit={handleSubmit} className="login-form">
         <div className="input-group">
           <label htmlFor="username">Username</label>
           <input
             type="text"
+            name="username"
             id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={formData.username}
+            onChange={handleChange}
             placeholder="Enter your username"
+            autoComplete="username"
             required
           />
         </div>
+
         <div className="input-group">
           <label htmlFor="password">Password</label>
           <input
             type="password"
+            name="password"
             id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={formData.password}
+            onChange={handleChange}
             placeholder="Enter your password"
+            autoComplete="current-password"
             required
           />
         </div>
-        <button type="submit" className="btn btn-instructor">
-          <span className="icon">👨‍🏫</span>
-          <span>Login as Instructor</span>
-        </button>
+
+        <button
+          type="submit"
+          className="btn btn-instructor"
+          disabled={isLoading}
+        >
+          {isLoading ? "Logging in..." : (
+            <>
+              <span className="icon">👨‍🏫</span>
+              <span>Login as Instructor</span>
+            </>
+          )}
+        </button> 
       </form>
-      <a href="/" className="back-link">← Back to role selection</a>
+
+      <Link to="/" className="back-link">← Back to role selection</Link>
     </div>
   );
 }

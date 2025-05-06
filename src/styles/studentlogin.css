@@ -1,96 +1,135 @@
+/* Base styles */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .container {
-    text-align: center;
-    padding: 3rem; /* Increased padding */
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(12px);
-    border-radius: 25px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
-    max-width: 1200px; /* Increased max-width */
-    width: 95%; /* Slightly more width */
-    margin: 3rem auto;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(18px);
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  width: 95%;
+  max-width: 500px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  animation: fadeInUp 0.8s ease-in-out;
+  color: #fff;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
   }
-  
-  h1 {
-    font-size: 2.5rem; /* Slightly larger heading */
-    color: white;
-    margin-bottom: 2rem;
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .error-message {
-    color: #ff4d4d;
-    font-size: 1rem;
-    margin-bottom: 1rem;
-  }
-  
-  .login-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  
-  .input-group {
-    text-align: left;
-  }
-  
-  .input-group label {
-    display: block;
-    font-size: 1.2rem; /* Made label more prominent */
-    font-weight: 600;  /* Bolder text */
-    color: #f1f1f1;
-    margin-bottom: 0.6rem;
-    letter-spacing: 0.5px;
-  }
-  
-  .input-group input {
-    width: 100%;
-    padding: 0.75rem;
-    font-size: 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: white;
-    outline: none;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .input-group input:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-  }
-  
-  .btn-student {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    color: white;
-    background-color: #007bff;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-  
-  .btn-student:hover {
-    background-color: #0056b3;
-    transform: translateY(-3px);
-  }
-  
-  .btn-student .icon {
-    margin-right: 0.5rem;
-  }
-  
-  .back-link {
-    display: inline-block;
-    margin-top: 1rem;
-    font-size: 1rem;
-    color: #007bff;
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-  
-  .back-link:hover {
-    color: #0056b3;
-    text-decoration: underline;
-  }
+}
+
+h1 {
+  font-size: 2.8rem;
+  margin-bottom: 1.5rem;
+  color: #f0f0f0;
+}
+
+.error-message {
+  color: #ff6b6b;
+  background-color: rgba(255, 107, 107, 0.1);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.input-group {
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #e0e0e0;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  color: #ffffff;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-group input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.input-group input:focus {
+  border-color: #00b4ff;
+  box-shadow: 0 0 10px rgba(0, 180, 255, 0.3);
+  outline: none;
+}
+
+/* Button */
+.btn-student {
+  padding: 0.75rem;
+  font-size: 1rem;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-student:hover {
+  background: linear-gradient(135deg, #0072ff, #004cbf);
+  transform: scale(1.03);
+}
+
+/* Spinner */
+.spinner-border {
+  width: 1rem;
+  height: 1rem;
+  border-width: 0.15em;
+  border-color: white transparent white transparent;
+  animation: spinner 0.75s linear infinite;
+}
+
+@keyframes spinner {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Back link */
+.back-link {
+  display: inline-block;
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  color: #cfe8ff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.back-link:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}

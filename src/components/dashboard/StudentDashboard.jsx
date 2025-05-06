@@ -13,14 +13,14 @@ function StudentDashboard() {
       
       <div className="dashboard-grid">
         <Link to="/student/components" className="dashboard-card">
-          <h2>Components</h2>
+          <h2>Request Components</h2>
           <p>Browse available components</p>
         </Link>
         
-        <Link to="/student/issue" className="dashboard-card">
+        {/* <Link to="/student/issue" className="dashboard-card">
           <h2>Issue Components</h2>
           <p>Request lab components</p>
-        </Link>
+        </Link> */}
         
         <Link to="/student/return" className="dashboard-card">
           <h2>Return Components</h2>

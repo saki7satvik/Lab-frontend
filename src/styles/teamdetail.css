@@ -1,0 +1,105 @@
+.team-detail {
+    max-width: 960px;
+    margin: 3rem auto;
+    padding: 2rem;
+    color: #fff;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  }
+  
+  .team-detail h1 {
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    background: linear-gradient(90deg, #ffecd2, #fcb69f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .team-detail h2 {
+    font-size: 1.4rem;
+    margin-top: 2rem;
+    color: #aee6ff;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.5rem;
+  }
+  
+  .members-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .members-table th,
+  .members-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .members-table th {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+  
+  .comp-section {
+    margin-top: 2rem;
+  }
+  
+  .comp-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.07);
+    padding: 0.8rem 1.2rem;
+    margin-top: 0.5rem;
+    border-radius: 12px;
+    color: #e0f7ff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+  
+  .comp-item span {
+    flex: 1;
+  }
+  
+  .comp-item button {
+    margin-left: 10px;
+    padding: 6px 12px;
+    background: #00c9ff;
+    border: none;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.2s ease;
+  }
+  
+  .comp-item button:hover {
+    background: #009cc9;
+  }
+  
+  .comp-item button:nth-child(3) {
+    background: #ff5e57;
+  }
+  
+  .comp-item button:nth-child(3):hover {
+    background: #e03e3e;
+  }
+  
+  .back-link {
+    display: inline-block;
+    margin-top: 2rem;
+    color: #99e6ff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .back-link:hover {
+    text-decoration: underline;
+  }
+  

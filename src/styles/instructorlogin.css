@@ -1,0 +1,106 @@
+.container {
+  max-width: 420px;
+  margin: 5rem auto;
+  padding: 2rem 2.5rem;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  text-align: center;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  background: linear-gradient(90deg, #00c9ff, #92fe9d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.input-group label {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: #c8e1ff;
+}
+
+.input-group input {
+  padding: 0.8rem;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: white;
+  transition: all 0.2s;
+}
+
+.input-group input:focus {
+  background-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 8px rgba(0, 201, 255, 0.7);
+}
+
+.btn-instructor {
+  background-color: #00c9ff;
+  color: #000;
+  font-weight: bold;
+  padding: 0.9rem 1.2rem;
+  border-radius: 10px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-instructor:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-instructor:hover:not(:disabled) {
+  background-color: #00b0e6;
+  box-shadow: 0 0 10px #00c9ff;
+  transform: translateY(-1px);
+}
+
+.error-message {
+  color: #ff6b6b;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  background-color: rgba(255, 107, 107, 0.1);
+  padding: 0.7rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 107, 107, 0.4);
+}
+
+.back-link {
+  display: block;
+  margin-top: 1.5rem;
+  text-decoration: none;
+  color: #00c9ff;
+  font-size: 0.95rem;
+  transition: all 0.3s;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+  color: #00eaff;
+}
